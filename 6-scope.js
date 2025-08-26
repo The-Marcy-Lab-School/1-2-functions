@@ -1,15 +1,18 @@
-// Global Scope - friend is accessible anywhere in this file.
-const friend = 'John';
+// Global Scope: this value can be referenced in any file. DON'T DO THIS
+global.x = 10; 
 
+// Module Scope: this value can only be referenced within this file
+const friend = 'John'; 
+
+// Function Scope: The myName parameter and message variable can only be referenced within greetFriend
 const greetFriend = (myName) => {
-  // The myName parameter has local/function scope. It can only be accessed inside of greetFriend
-
-  // We can access the globally scoped `friend` here since we are in an "inner" scope.
-  console.log(`Hi, ${friend}, I'm ${myName}`);
+  // We can access the module scoped `friend` here since we are in a lower scope.
+  const message = `Hi, ${friend}, I'm ${myName}`;
+  
+  console.log(message);
 }
 
-greetFriend('Jane');
+greetFriend('Jane'); 
 // Output: "Hi, John, I'm Jane"
 
-// We can't access myName because we are in an "outer" scope compared to where it is declared.
-myName; // ReferenceError: myName is not defined
+console.log(message); // ReferenceError: message is not defined in this scope
